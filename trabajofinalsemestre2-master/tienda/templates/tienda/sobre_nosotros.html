@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - Zapatería Elegante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #8a5a44;
+            --secondary-color: #d4b896;
+            --accent-color: #c17878;
+            --dark-color: #3c2f2f;
+            --light-color: #f8f5f0;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #6d4635;
+            border-color: #6d4635;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-dark {
+            background-color: var(--dark-color) !important;
+        }
+
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 30px 20px;
+            height: 100%;
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .team-member {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .team-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 5px solid var(--secondary-color);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            width: 50%;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            top: 20px;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'tienda:base' %}">
+                <i class="bi bi-shop"></i> Zapatería Elegante
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:base' %}">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'tienda:sobre_nosotros' %}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:contacto' %}">Contacto</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:carrito' %}">
+                            <i class="bi bi-cart3"></i> Carrito
+
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}#orders">Mis Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Contenido Principal -->
+    <main class="container mt-4">
+        <!-- Migas de pan -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'tienda:base' %}">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sobre Nosotros</li>
+            </ol>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="about-hero text-center rounded">
+                    <h1 class="display-4 fw-bold">Nuestra Historia</h1>
+                    <p class="lead">Más de 20 años calzando a España con elegancia y calidad</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introducción -->
+        <div class="row mb-5">
+            <div class="col-lg-6">
+                <h2 class="mb-4">¿Quiénes somos?</h2>
+                <p class="lead">En Zapatería Elegante, nos dedicamos a ofrecer calzado de la más alta calidad para hombres y mujeres que buscan estilo, comodidad y durabilidad.</p>
+                <p>Fundada en 2003, nuestra empresa familiar ha crecido hasta convertirse en un referente en el sector del calzado, manteniendo siempre nuestros valores de artesanía, atención al cliente y pasión por el calzado bien hecho.</p>
+                <p>Cada par de zapatos que vendemos representa nuestro compromiso con la excelencia y nuestra dedicación a satisfacer las necesidades de nuestros clientes.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Nuestra tienda" class="img-fluid rounded">
+            </div>
+        </div>
+
+        <!-- Valores -->
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-5">
+                <h2>Nuestros Valores</h2>
+                <p class="lead">Los principios que guían todo lo que hacemos</p>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card value-card">
+                    <i class="bi bi-award value-icon"></i>
+                    <h4>Calidad</h4>
+                    <p>Seleccionamos materiales de primera calidad y trabajamos con artesanos expertos para garantizar que cada par de zapatos supere tus expectativas.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card value-card">
+                    <i class="bi bi-heart value-icon"></i>
+                    <h4>Pasión</h4>
+                    <p>Amamos lo que hacemos y eso se refleja en cada diseño, cada detalle y cada interacción con nuestros clientes.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card value-card">
+                    <i class="bi bi-arrow-repeat value-icon"></i>
+                    <h4>Sostenibilidad</h4>
+                    <p>Nos comprometemos con prácticas responsables, utilizando materiales sostenibles y reduciendo nuestro impacto ambiental.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historia -->
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-5">
+                <h2>Nuestra Historia</h2>
+                <p class="lead">Un viaje de dos décadas de excelencia en calzado</p>
+            </div>
+            
+            <div class="col-12">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>2003</h4>
+                            <p>Apertura de nuestra primera tienda en el centro de Madrid con solo 50 modelos de zapatos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>2008</h4>
+                            <p>Lanzamiento de nuestra primera línea de calzado ecológico y expansión a 3 nuevas tiendas.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>2012</h4>
+                            <p>Inauguración de nuestra fábrica propia, permitiéndonos controlar todo el proceso de producción.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>2015</h4>
+                            <p>Lanzamiento de nuestra tienda online, llegando a clientes de toda España.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>2020</h4>
+                            <p>Adaptación a las nuevas necesidades con servicios de click&collect y envíos express.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>2023</h4>
+                            <p>Celebramos 20 años con más de 10.000 clientes satisfechos y 15 tiendas por toda España.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-5">
+                <h2>En Cifras</h2>
+                <p class="lead">Números que hablan por sí solos</p>
+            </div>
+            
+            <div class="col-md-3 col-6 text-center mb-4">
+                <div class="stats-number">20+</div>
+                <p>Años de experiencia</p>
+            </div>
+            
+            <div class="col-md-3 col-6 text-center mb-4">
+                <div class="stats-number">15</div>
+                <p>Tiendas físicas</p>
+            </div>
+            
+            <div class="col-md-3 col-6 text-center mb-4">
+                <div class="stats-number">10K+</div>
+                <p>Clientes satisfechos</p>
+            </div>
+            
+            <div class="col-md-3 col-6 text-center mb-4">
+                <div class="stats-number">500+</div>
+                <p>Modelos de zapatos</p>
+            </div>
+        </div>
+
+        <!-- Equipo -->
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-5">
+                <h2>Nuestro Equipo</h2>
+                <p class="lead">Los expertos detrás de Zapatería Elegante</p>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Carlos García" class="team-img">
+                    <h4>Carlos García</h4>
+                    <p class="text-primary">Fundador y CEO</p>
+                    <p>Con más de 30 años de experiencia en el sector del calzado, Carlos dirige nuestra empresa con pasión y visión.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Elena Martínez" class="team-img">
+                    <h4>Elena Martínez</h4>
+                    <p class="text-primary">Directora de Diseño</p>
+                    <p>Elena combina tradición y modernidad en cada diseño, creando zapatos que son tendencia temporada tras temporada.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Javier López" class="team-img">
+                    <h4>Javier López</h4>
+                    <p class="text-primary">Jefe de Producción</p>
+                    <p>Javier supervisa cada etapa del proceso de fabricación, garantizando la máxima calidad en cada par de zapatos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compromiso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card bg-dark text-white">
+                    <div class="card-body p-5 text-center">
+                        <h3 class="card-title mb-4">Nuestro Compromiso</h3>
+                        <p class="lead">"En Zapatería Elegante, no solo vendemos zapatos; creamos experiencias y confidentes para tus pasos. Cada par que fabricamos lleva nuestro compromiso de calidad, estilo y comodidad. Estamos aquí para acompañarte en cada paso de tu camino."</p>
+                        <p class="mt-4">- Carlos García, Fundador</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Zapatería Elegante</h5>
+                    <p>La mejor selección de zapatos para hombre y mujer.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-pinterest fs-4"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces útiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'tienda:sobre_nosotros' %}">Sobre nosotros</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Términos y condiciones</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de privacidad</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de envíos</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Devoluciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <address>
+                        <i class="bi bi-geo-alt"></i> Calle Principal, 123<br>
+                        <i class="bi bi-phone"></i> +34 123 456 789<br>
+                        <i class="bi bi-envelope"></i> info@zapateriaelegante.com
+                    </address>
+
+                </div>
+            </div>
+            <hr>
+            <p class="text-center mb-0">&copy; 2023 Zapatería Elegante. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+            
+            updateCartCount();
+            
+            // Animación para los números de estadísticas
+            const statsElements = document.querySelectorAll('.stats-number');
+            const statsValues = [20, 15, 10000, 500];
+            let animated = false;
+            
+            function animateStats() {
+                if (animated) return;
+                
+                statsElements.forEach((element, index) => {
+                    let current = 0;
+                    const target = statsValues[index];
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            clearInterval(timer);
+                            element.textContent = target.toLocaleString();
+                        } else {
+                            element.textContent = Math.floor(current).toLocaleString();
+                        }
+                    }, 30);
+                });
+                
+                animated = true;
+            }
+            
+            // Activar animación cuando los elementos son visibles
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStats();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            if (statsElements.length > 0) {
+                observer.observe(statsElements[0].parentElement.parentElement);
+            }
+        });
+    </script>
+<script>
+        // Funcionalidad para el carrusel de miniaturas en página de producto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cambiar imagen principal al hacer clic en miniatura
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('main-product-image');
+
+            if (thumbnails && mainImage) {
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remover clase active de todas las miniaturas
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        // Añadir clase active a la miniatura clickeada
+                        this.classList.add('active');
+                        // Cambiar la imagen principal
+                        mainImage.src = this.src;
+                    });
+                });
+            }
+
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                // Simulación: normalmente esto vendría de tu backend
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+
+            updateCartCount();
+
+            // Añadir producto al carrito
+            const addToCartButtons = document.querySelectorAll('.btn-primary');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let count = parseInt(localStorage.getItem('cartCount') || 3);
+                    count++;
+                    localStorage.setItem('cartCount', count);
+                    updateCartCount();
+
+                    // Mostrar notificación
+                    const toast = document.createElement('div');
+                    toast.className = 'position-fixed bottom-0 end-0 p-3';
+                    toast.innerHTML = `
+                        <div class="toast show" role="alert">
+                            <div class="toast-header">
+                                <i class="bi bi-cart-check me-2 text-success"></i>
+                                <strong class="me-auto">Producto añadido</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                El producto se ha añadido correctamente a tu carrito.
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+
+                    // Eliminar la notificación después de 3 segundos
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                });
+            });
+        });
+    </script>
+    <script>
+// Sistema de Carrito de Compras
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carrito si no existe
+    if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Actualizar contador del carrito
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const countElement = document.getElementById('carrito-count');
+        if (countElement) countElement.textContent = count;
+    }
+
+    updateCartCount();
+
+    // Función para añadir productos al carrito
+    window.addToCart = function(productId, productName, productPrice, productImage, productColor, productSize) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const existingItemIndex = cart.findIndex(item =>
+            item.id === productId && item.color === productColor && item.size === productSize
+        );
+
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                color: productColor || 'No especificado',
+                size: productSize || 'No especificado',
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+
+        // Mostrar notificación
+        const toast = document.createElement('div');
+        toast.className = 'position-fixed bottom-0 end-0 p-3';
+        toast.innerHTML = `
+            <div class="toast show" role="alert">
+                <div class="toast-header">
+                    <i class="bi bi-cart-check me-2 text-success"></i>
+                    <strong class="me-auto">¡Éxito!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body">
+                    Producto añadido al carrito
+                </div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    };
+
+    // Configurar botones "Añadir al carrito"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            const productName = this.dataset.name;
+            const productPrice = parseFloat(this.dataset.price);
+            const productImage = this.dataset.image;
+
+            addToCart(productId, productName, productPrice, productImage);
+        });
+    });
+});
+</script>
+</body>
+</html>

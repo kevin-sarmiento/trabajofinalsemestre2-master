@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Zapatería Elegante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #8a5a44;
+            --secondary-color: #d4b896;
+            --accent-color: #c17878;
+            --dark-color: #3c2f2f;
+            --light-color: #f8f5f0;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #6d4635;
+            border-color: #6d4635;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(212, 184, 150, 0.25);
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-dark {
+            background-color: var(--dark-color) !important;
+        }
+
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .contact-info-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .contact-info-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="tienda/base.html">
+                <i class="bi bi-shop"></i> Zapatería Elegante
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="tienda/base.html">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriasDropdown" role="button" data-bs-toggle="dropdown">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="tienda/categorias/zapatos%20hombre.html">Zapatos de Hombre</a></li>
+                            <li><a class="dropdown-item" href="tienda/categorias/categoria%20mujer.html">Zapatos de Mujer</a></li>
+                            <li><a class="dropdown-item" href="tienda/categorias/zapatos%20deportivos.html">Deportivos</a></li>
+                            <li><a class="dropdown-item" href="tienda/categorias/botas.html">Botas</a></li>
+                            <li><a class="dropdown-item" href="tienda/categorias/sandalias.html">Sandalias</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tienda/sobre_nosotros.html">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contacto.html">Contacto</a>
+                    </li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control me-2" type="search" placeholder="Buscar zapatos..." aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Buscar</button>
+                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="tienda/carrito.html">
+                            <i class="bi bi-cart3"></i> Carrito
+                            <span class="badge bg-primary" id="carrito-count">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="tienda/perfil.html">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="orders.html">Mis Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="container mt-4">
+        <!-- Migas de pan -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="tienda/base.html">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Contacto</li>
+            </ol>
+        </nav>
+
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-5">
+                <h1>Contáctanos</h1>
+                <p class="lead">Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.</p>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <!-- Información de contacto -->
+            <div class="col-lg-4 mb-4">
+                <div class="contact-info-card p-4 text-center">
+                    <i class="bi bi-geo-alt-fill contact-icon"></i>
+                    <h4>Nuestra Dirección</h4>
+                    <p>Calle Principal, 123<br>28001 Madrid, España</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="contact-info-card p-4 text-center">
+                    <i class="bi bi-envelope-fill contact-icon"></i>
+                    <h4>Email</h4>
+                    <p>info@zapateriaelegante.com<br>soporte@zapateriaelegante.com</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="contact-info-card p-4 text-center">
+                    <i class="bi bi-telephone-fill contact-icon"></i>
+                    <h4>Teléfono</h4>
+                    <p>+34 123 456 789<br>Lunes a Viernes: 9:00 - 20:00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Formulario de contacto -->
+            <div class="col-lg-8 mb-5">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-4">Envíanos un mensaje</h3>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Nombre completo *</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Asunto *</label>
+                                <input type="text" class="form-control" id="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Mensaje *</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="privacyCheck" required>
+                                <label class="form-check-label" for="privacyCheck">
+                                    He leído y acepto la <a href="#">política de privacidad</a> *
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Enviar mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información adicional -->
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Horario de atención</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Lunes - Viernes
+                                <span>9:00 - 20:00</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Sábados
+                                <span>10:00 - 14:00</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Domingos
+                                <span>Cerrado</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">¿Necesitas ayuda inmediata?</h4>
+                        <p>Para consultas urgentes, no dudes en llamarnos directamente:</p>
+                        <div class="d-grid">
+                            <a href="tel:+34123456789" class="btn btn-outline-primary">
+                                <i class="bi bi-telephone-fill"></i> Llamar ahora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Encuéntranos</h4>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.4753179979587!2d-3.7037903844040877!3d40.419629063046656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287e23931ee7%3A0x2e4a7e4b3f5d0b1e!2sPuerta%20del%20Sol%2C%20Madrid!5e0!3m2!1ses!2ses!4v1633512345678!5m2!1ses!2ses" 
+                                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preguntas frecuentes -->
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-center mb-4">Preguntas frecuentes</h3>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                ¿Cuál es el tiempo de entrega?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                El tiempo de entrega estándar es de 3-5 días laborables para la península. Para envíos a las islas y otros destinos, el plazo puede extenderse a 7-10 días laborables.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                ¿Puedo devolver un producto?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Sí, aceptamos devoluciones dentro de los 30 días posteriores a la recepción del pedido. Los productos deben estar en perfecto estado y con el embalaje original.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                ¿Cómo sé mi talla correcta?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                En la página de cada producto encontrarás una guía de tallas. Si aún tienes dudas, puedes contactarnos y te ayudaremos a encontrar la talla perfecta para ti.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Zapatería Elegante</h5>
+                    <p>La mejor selección de zapatos para hombre y mujer.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-pinterest fs-4"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces útiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Sobre nosotros</a></li>
+                        <li><a href="#" class="text-light">Términos y condiciones</a></li>
+                        <li><a href="#" class="text-light">Política de privacidad</a></li>
+                        <li><a href="#" class="text-light">Política de envíos</a></li>
+                        <li><a href="#" class="text-light">Devoluciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <address>
+                        <i class="bi bi-geo-alt"></i> Calle Principal, 123<br>
+                        <i class="bi bi-phone"></i> +34 123 456 789<br>
+                        <i class="bi bi-envelope"></i> info@zapateriaelegante.com
+                    </address>
+                    <h5>Boletín</h5>
+                    <form>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Tu email">
+                            <button class="btn btn-primary" type="button">Suscribirse</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <p class="text-center mb-0">&copy; 2023 Zapatería Elegante. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+            
+            updateCartCount();
+            
+            // Validación del formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validación simple
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+                    
+                    if (name && email && subject && message) {
+                        // Simular envío exitoso
+                        alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
+                        contactForm.reset();
+                    } else {
+                        alert('Por favor, completa todos los campos obligatorios.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% load static %}
+
+{# _productos_grid.html
+   Fragmento reutilizable que pinta un grid de tarjetas de zapatos.
+   Recibe una variable iterable llamada "zapatos" (o el nombre que le pases al include).
+#}
+
+<div class="row">
+  {% for zapato in zapatos %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        {% if zapato.imagen %}
+          <img src="{{ zapato.imagen.url }}" class="card-img-top" alt="{{ zapato.nombre }}" style="height:250px;object-fit:cover;">
+        {% else %}
+          <img src="{% static 'img/no-image.png' %}" class="card-img-top" alt="Sin imagen" style="height:250px;object-fit:cover;">
+        {% endif %}
+
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge bg-secondary">{{ zapato.tipo }}</span>
+            <div class="rating-stars" title="Puntuación: {{ zapato.puntuacion }}">
+              {# Render simple de 5 estrellas #}
+              {% for _ in "12345" %}
+                {% if forloop.counter <= zapato.puntuacion %}
+                  <i class="bi bi-star-fill"></i>
+                {% else %}
+                  <i class="bi bi-star"></i>
+                {% endif %}
+              {% endfor %}
+              <span class="ms-1">({{ zapato.puntuacion|default:"0" }})</span>
+            </div>
+          </div>
+
+          <h5 class="card-title">{{ zapato.nombre }}</h5>
+          <p class="card-text text-muted">{{ zapato.descripcion|default:"" |truncatechars:80 }}</p>
+
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <span class="product-price">€{{ zapato.precio }}</span>
+            <small class="text-muted">{{ zapato.marca }}</small>
+          </div>
+        </div>
+
+        <div class="card-footer bg-white border-0">
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary add-to-cart-btn"
+                    data-id="{{ zapato.id }}"
+                    data-name="{{ zapato.nombre }}"
+                    data-price="{{ zapato.precio }}"
+                    data-image="{% if zapato.imagen %}{{ zapato.imagen.url }}{% endif %}">
+              Añadir al Carrito
+            </button>
+            <a href="{% url 'tienda:detalle_zapato' zapato.id %}" class="btn btn-outline-primary">Ver Detalles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="col-12">
+      <p class="text-muted">No hay productos disponibles.</p>
+    </div>
+  {% endfor %}
+</div>

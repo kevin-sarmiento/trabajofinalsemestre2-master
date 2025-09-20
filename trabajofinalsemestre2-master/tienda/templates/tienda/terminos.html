@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Zapatería Elegante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #8a5a44;
+            --secondary-color: #d4b896;
+            --accent-color: #c17878;
+            --dark-color: #3c2f2f;
+            --light-color: #f8f5f0;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #6d4635;
+            border-color: #6d4635;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(212, 184, 150, 0.25);
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-dark {
+            background-color: var(--dark-color) !important;
+        }
+
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .contact-info-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .contact-info-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'tienda:base' %}">
+                <i class="bi bi-shop"></i> Zapatería Elegante
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'tienda:base' %}">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:sobre_nosotros' %}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:contacto' %}">Contacto</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:carrito' %}">
+                            <i class="bi bi-cart3"></i> Carrito
+
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}#orders">Mis Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<main class="container py-5">
+    <h1 class="mb-4">Información Legal y Políticas</h1>
+
+    <!-- Navegación interna -->
+    <nav class="mb-4">
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#terminos">Términos y Condiciones</a></li>
+            <li class="list-inline-item"><a href="#privacidad">Política de Privacidad</a></li>
+            <li class="list-inline-item"><a href="#envios">Política de Envíos y Devoluciones</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sección Términos -->
+    <section id="terminos" class="mb-5">
+        <h2>Términos y Condiciones</h2>
+        <p>Al utilizar el sitio web de <strong>Zapatería Elegante</strong>, aceptas las siguientes condiciones:</p>
+        <ul>
+            <li>Todos los precios incluyen impuestos aplicables.</li>
+            <li>Las compras dependen de la disponibilidad del stock.</li>
+            <li>Nos reservamos el derecho de modificar precios y promociones sin previo aviso.</li>
+            <li>El uso fraudulento del sitio resultará en la cancelación de la cuenta.</li>
+        </ul>
+    </section>
+
+    <!-- Sección Privacidad -->
+    <section id="privacidad" class="mb-5">
+        <h2>Política de Privacidad</h2>
+        <p>En <strong>Zapatería Elegante</strong> protegemos tu privacidad:</p>
+        <ul>
+            <li>Tus datos se usan únicamente para gestionar pedidos y mejorar tu experiencia.</li>
+            <li>No compartimos tu información personal con terceros sin consentimiento.</li>
+            <li>Usamos cookies para mejorar la navegación y personalizar contenido.</li>
+            <li>Puedes solicitar modificación o eliminación de tus datos en cualquier momento.</li>
+        </ul>
+    </section>
+
+    <!-- Sección Envíos y devoluciones -->
+    <section id="envios" class="mb-5">
+        <h2>Política de Envíos y Devoluciones</h2>
+        <p>Queremos que disfrutes de tus compras en <strong>Zapatería Elegante</strong> con total confianza:</p>
+        <ul>
+            <li>Los envíos se realizan en un plazo de 2 a 5 días hábiles, según la ubicación.</li>
+            <li>El costo de envío se calcula al finalizar la compra.</li>
+            <li>Las devoluciones son aceptadas dentro de los 15 días posteriores a la entrega, siempre que el producto esté en perfecto estado.</li>
+            <li>El reembolso se hará en el mismo método de pago utilizado.</li>
+        </ul>
+    </section>
+</main>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Zapatería Elegante</h5>
+                    <p>La mejor selección de zapatos para hombre y mujer.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-pinterest fs-4"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces útiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'tienda:sobre_nosotros' %}">Sobre nosotros</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Términos y condiciones</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de privacidad</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de envíos</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Devoluciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <address>
+                        <i class="bi bi-geo-alt"></i> Calle Principal, 123<br>
+                        <i class="bi bi-phone"></i> +34 123 456 789<br>
+                        <i class="bi bi-envelope"></i> info@zapateriaelegante.com
+                    </address>
+
+                </div>
+            </div>
+            <hr>
+            <p class="text-center mb-0">&copy; 2023 Zapatería Elegante. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+
+            updateCartCount();
+
+            // Validación del formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Validación simple
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+
+                    if (name && email && subject && message) {
+                        // Simular envío exitoso
+                        alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
+                        contactForm.reset();
+                    } else {
+                        alert('Por favor, completa todos los campos obligatorios.');
+                    }
+                });
+            }
+        });
+    </script>
+<script>
+        // Funcionalidad para el carrusel de miniaturas en página de producto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cambiar imagen principal al hacer clic en miniatura
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('main-product-image');
+
+            if (thumbnails && mainImage) {
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remover clase active de todas las miniaturas
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        // Añadir clase active a la miniatura clickeada
+                        this.classList.add('active');
+                        // Cambiar la imagen principal
+                        mainImage.src = this.src;
+                    });
+                });
+            }
+
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                // Simulación: normalmente esto vendría de tu backend
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+
+            updateCartCount();
+
+            // Añadir producto al carrito
+            const addToCartButtons = document.querySelectorAll('.btn-primary');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let count = parseInt(localStorage.getItem('cartCount') || 3);
+                    count++;
+                    localStorage.setItem('cartCount', count);
+                    updateCartCount();
+
+                    // Mostrar notificación
+                    const toast = document.createElement('div');
+                    toast.className = 'position-fixed bottom-0 end-0 p-3';
+                    toast.innerHTML = `
+                        <div class="toast show" role="alert">
+                            <div class="toast-header">
+                                <i class="bi bi-cart-check me-2 text-success"></i>
+                                <strong class="me-auto">Producto añadido</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                El producto se ha añadido correctamente a tu carrito.
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+
+                    // Eliminar la notificación después de 3 segundos
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                });
+            });
+        });
+    </script>
+    <script>
+// Sistema de Carrito de Compras
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carrito si no existe
+    if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Actualizar contador del carrito
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const countElement = document.getElementById('carrito-count');
+        if (countElement) countElement.textContent = count;
+    }
+
+    updateCartCount();
+
+    // Función para añadir productos al carrito
+    window.addToCart = function(productId, productName, productPrice, productImage, productColor, productSize) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const existingItemIndex = cart.findIndex(item =>
+            item.id === productId && item.color === productColor && item.size === productSize
+        );
+
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                color: productColor || 'No especificado',
+                size: productSize || 'No especificado',
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+
+        // Mostrar notificación
+        const toast = document.createElement('div');
+        toast.className = 'position-fixed bottom-0 end-0 p-3';
+        toast.innerHTML = `
+            <div class="toast show" role="alert">
+                <div class="toast-header">
+                    <i class="bi bi-cart-check me-2 text-success"></i>
+                    <strong class="me-auto">¡Éxito!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body">
+                    Producto añadido al carrito
+                </div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    };
+
+    // Configurar botones "Añadir al carrito"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            const productName = this.dataset.name;
+            const productPrice = parseFloat(this.dataset.price);
+            const productImage = this.dataset.image;
+
+            addToCart(productId, productName, productPrice, productImage);
+        });
+    });
+});
+</script>
+</body>
+</html>

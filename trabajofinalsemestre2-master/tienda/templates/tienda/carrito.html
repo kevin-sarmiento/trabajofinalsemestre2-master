@@ -1,0 +1,1200 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Zapatería Elegante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #8a5a44;
+            --secondary-color: #d4b896;
+            --accent-color: #c17878;
+            --dark-color: #3c2f2f;
+            --light-color: #f8f5f0;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #6d4635;
+            border-color: #6d4635;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(212, 184, 150, 0.25);
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .category-badge {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .navbar-dark {
+            background-color: var(--dark-color) !important;
+        }
+
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .quantity-input {
+            width: 70px;
+            text-align: center;
+        }
+
+        .cart-item-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .summary-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        .empty-cart-icon {
+            font-size: 5rem;
+            color: #dee2e6;
+        }
+
+        .promo-code {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .continue-shopping {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+
+        .discount-badge {
+            background-color: var(--accent-color);
+        }
+
+        /* Estilos para el modal de pago */
+        .payment-modal .modal-content {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .payment-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .payment-step {
+            display: none;
+        }
+
+        .payment-step.active {
+            display: block;
+        }
+
+        .payment-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .payment-form label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .payment-method {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover, .payment-method.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(138, 90, 68, 0.05);
+        }
+
+        .payment-method.selected {
+            border-width: 2px;
+        }
+
+        .payment-progress {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            margin: 1.5rem 0;
+        }
+
+        .payment-progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            background-color: var(--primary-color);
+            transition: width 0.5s;
+        }
+
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 1.5rem;
+        }
+
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .cart-item-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .mobile-space {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar principal -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'tienda:base' %}">
+                <i class="bi bi-shop"></i> Zapatería Elegante
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'tienda:base' %}">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:sobre_nosotros' %}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:contacto' %}">Contacto</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'tienda:carrito' %}">
+                            <i class="bi bi-cart3"></i> Carrito
+
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}#orders">Mis Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="container mt-4">
+        <!-- Migas de pan -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="base.html">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Carrito de Compras</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Tu Carrito de Compras</h2>
+
+                </div>
+
+                <!-- Elementos del carrito -->
+                <div class="card mb-4">
+                    <div class="card-body" id="cart-items-container">
+                        <!-- Los productos se cargarán dinámicamente con JavaScript -->
+                        <div class="text-center py-5" id="empty-cart-message">
+                            <i class="bi bi-cart-x empty-cart-icon"></i>
+                            <h3 class="mt-3">Tu carrito está vacío</h3>
+                            <p class="text-muted">Parece que aún no has añadido ningún producto a tu carrito.</p>
+                            <a href="{% url 'tienda:base' %}" class="btn btn-primary mt-3">Descubrir productos</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Continuar comprando -->
+                <div class="text-center">
+                    <a href="{% url 'tienda:base' %}" class="continue-shopping">
+                        <i class="bi bi-arrow-left"></i> Continuar comprando
+                    </a>
+                </div>
+            </div>
+
+            <!-- Resumen del pedido -->
+            <div class="col-lg-4">
+                <div class="summary-card p-4 mb-4">
+                    <h4 class="mb-4">Resumen del Pedido</h4>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">€0.00</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Descuento</span>
+                        <span class="text-success" id="cart-discount">-€0.00</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Envío</span>
+                        <span class="text-success" id="cart-shipping">Gratis</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Impuestos</span>
+                        <span id="cart-tax">€0.00</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <strong>Total</strong>
+                        <strong id="cart-total">€0.00</strong>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg" id="checkout-btn">Proceder al Pago</button>
+                    </div>
+
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="termsCheck">
+                        <label class="form-check-label small" for="termsCheck">
+                            Acepto los <a href="{% url 'tienda:terminos' %}">términos y condiciones</a> y la <a href="{% url 'tienda:terminos' %}">política de privacidad</a>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Seguridad -->
+               <div class="card">
+    <div class="card-body text-center">
+        <i class="bi bi-shield-check text-primary fs-1 mb-2"></i>
+        <h5>Compra Segura</h5>
+        <p class="small">Tus datos están protegidos con encriptación SSL de 256 bits.</p>
+        <div class="d-flex justify-content-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" width="50" class="me-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" width="50" class="me-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" width="50" class="me-2">
+        </div>
+    </div>
+</div>
+
+
+        </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Zapatería Elegante</h5>
+                    <p>La mejor selección de zapatos para hombre y mujer.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-pinterest fs-4"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces útiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'tienda:sobre_nosotros' %}">Sobre nosotros</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Términos y condiciones</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de privacidad</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de envíos</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Devoluciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <address>
+                        <i class="bi bi-geo-alt"></i> Calle Principal, 123<br>
+                        <i class="bi bi-phone"></i> +34 123 456 789<br>
+                        <i class="bi bi-envelope"></i> info@zapateriaelegante.com
+                    </address>
+
+                </div>
+            </div>
+            <hr>
+            <p class="text-center mb-0">&copy; 2023 Zapatería Elegante. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <!-- Modal de Proceso de Pago -->
+    <div class="modal fade payment-modal" id="paymentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="payment-header text-center">
+                    <h4 class="modal-title">Proceso de Pago</h4>
+                    <p class="mb-0">Completa los siguientes pasos para finalizar tu compra</p>
+                </div>
+                <div class="modal-body">
+                    <!-- Barra de progreso -->
+                    <div class="payment-progress">
+                        <div class="payment-progress-bar" id="paymentProgress" style="width: 0%"></div>
+                    </div>
+
+                    <!-- Paso 1: Información de envío -->
+                    <div class="payment-step active" id="step1">
+                        <h5 class="mb-4">Información de Envío</h5>
+                        <form class="payment-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName">Nombre</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastName">Apellidos</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Dirección</label>
+                                <input type="text" class="form-control" id="address" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="city">Ciudad</label>
+                                        <input type="text" class="form-control" id="city" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="postalCode">Código Postal</label>
+                                        <input type="text" class="form-control" id="postalCode" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">País</label>
+                                <select class="form-control" id="country" required>
+                                    <option value="">Selecciona un país</option>
+                                    <option value="es">España</option>
+                                    <option value="fr">Francia</option>
+                                    <option value="it">Italia</option>
+                                    <option value="pt">Portugal</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(2)">Continuar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Paso 2: Método de pago -->
+                    <div class="payment-step" id="step2">
+                        <h5 class="mb-4">Método de Pago</h5>
+                        <div class="payment-method" onclick="selectPaymentMethod('creditCard')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCardMethod">
+                                <label class="form-check-label fw-bold" for="creditCardMethod">
+                                    Tarjeta de Crédito/Débito
+                                </label>
+                            </div>
+                            <div class="mt-2 payment-details" id="creditCardDetails">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="cardNumber">Número de Tarjeta</label>
+                                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="cardExpiry">Fecha de Expiración</label>
+                                            <input type="text" class="form-control" id="cardExpiry" placeholder="MM/AA">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="cardCVC">CVC</label>
+                                            <input type="text" class="form-control" id="cardCVC" placeholder="123">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardName">Nombre en la Tarjeta</label>
+                                    <input type="text" class="form-control" id="cardName">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-method" onclick="selectPaymentMethod('paypal')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="paypalMethod">
+                                <label class="form-check-label fw-bold" for="paypalMethod">
+                                    PayPal
+                                </label>
+                            </div>
+                            <div class="mt-2 payment-details" id="paypalDetails">
+                                <p>Serás redirigido a PayPal para completar tu pago de forma segura.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-outline-secondary" onclick="prevStep(1)">Atrás</button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Continuar</button>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3: Revisar y confirmar -->
+                    <div class="payment-step" id="step3">
+                        <h5 class="mb-4">Revisar Pedido</h5>
+
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6>Resumen del Pedido</h6>
+                                <div id="order-summary">
+                                    <!-- Se llenará dinámicamente con JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6>Dirección de Envío</h6>
+                                <div id="shipping-address-summary">
+                                    <!-- Se llenará dinámicamente con JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="confirmOrder">
+                            <label class="form-check-label" for="confirmOrder">
+                                Confirmo que he revisado toda la información y deseo proceder con el pago.
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-secondary" onclick="prevStep(2)">Atrás</button>
+                            <button type="button" class="btn btn-primary" id="confirm-payment-btn" onclick="processPayment()" disabled>Confirmar y Pagar</button>
+                        </div>
+                    </div>
+
+                    <!-- Paso 4: Procesando pago -->
+                    <div class="payment-step" id="step4">
+                        <div class="text-center py-4">
+                            <div class="loader mb-3"></div>
+                            <h5>Procesando tu pago</h5>
+                            <p>Por favor, espera mientras procesamos tu información de pago.</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 5: Confirmación -->
+                    <div class="payment-step" id="step5">
+                        <div class="text-center py-4">
+                            <i class="bi bi-check-circle-fill confirmation-icon"></i>
+                            <h4>¡Pago Completado con Éxito!</h4>
+                            <p class="mb-3">Tu pedido ha sido procesado correctamente.</p>
+                            <div class="alert alert-success">
+                                <strong>Número de pedido: #<span id="order-number"></span></strong><br>
+                                Recibirás un correo electrónico con todos los detalles de tu compra.
+                            </div>
+                            <p>Gracias por tu compra en <strong>Zapatería Elegante</strong>.</p>
+                            <button type="button" class="btn btn-primary mt-3" data-bs-dismiss="modal" onclick="{% url 'tienda:carrito' %}">Continuar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Sistema de Carrito Unificado
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener el carrito desde localStorage
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const container = document.getElementById("cart-items-container");
+        const emptyMessage = document.getElementById("empty-cart-message");
+        const cartCount = document.getElementById("carrito-count");
+
+        // Elementos del resumen
+        const cartSubtotal = document.getElementById("cart-subtotal");
+        const cartDiscount = document.getElementById("cart-discount");
+        const cartTax = document.getElementById("cart-tax");
+        const cartTotal = document.getElementById("cart-total");
+
+        // Si el carrito está vacío, mostrar mensaje
+        if (cart.length === 0) {
+            emptyMessage.style.display = "block";
+            updateSummary(0, 0, 0);
+            return;
+        }
+
+        // Ocultar mensaje de carrito vacío
+        emptyMessage.style.display = "none";
+
+        // Limpiar contenedor antes de agregar items
+        container.innerHTML = "";
+
+        // Calcular subtotal
+        let subtotal = 0;
+
+        // Crear elementos para cada producto en el carrito
+        cart.forEach((item, index) => {
+            let itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            let div = document.createElement("div");
+            div.classList.add("row", "mb-4", "pb-3", "border-bottom", "cart-item");
+            div.setAttribute("data-index", index);
+            div.innerHTML = `
+                <div class="col-md-2 col-4">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                </div>
+                <div class="col-md-6 col-8">
+                    <h5 class="card-title mb-1">${item.name}</h5>
+                    <p class="text-muted mb-1">Color: ${item.color || "-"} • Talla: ${item.size || "-"}</p>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-danger remove-item-btn">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 mobile-space">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="input-group input-group-sm" style="width: 120px;">
+                            <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
+                            <input type="number" class="form-control quantity-input text-center" value="${item.quantity}" min="1">
+                            <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
+                        </div>
+                        <div class="text-end">
+                            <span class="product-price">€${itemTotal.toFixed(2)}</span>
+                            <div class="text-muted small">€${item.price.toFixed(2)} c/u</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+
+            // Agregar event listeners a los botones
+            const minusBtn = div.querySelector(".minus-btn");
+            const plusBtn = div.querySelector(".plus-btn");
+            const qtyInput = div.querySelector(".quantity-input");
+            const removeBtn = div.querySelector(".remove-item-btn");
+
+            minusBtn.addEventListener("click", function() {
+                updateQuantity(index, -1);
+            });
+
+            plusBtn.addEventListener("click", function() {
+                updateQuantity(index, 1);
+            });
+
+            qtyInput.addEventListener("change", function() {
+                setQuantity(index, parseInt(this.value) || 1);
+            });
+
+            removeBtn.addEventListener("click", function() {
+                removeItem(index);
+            });
+        });
+
+        // Actualizar resumen
+        updateSummary(subtotal, 0, subtotal * 0.21); // 21% de impuestos
+
+        // Actualizar contador del carrito
+        updateCartCount();
+
+        // Configurar botón de pago
+        const checkoutBtn = document.getElementById("checkout-btn");
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener("click", function() {
+                if (document.getElementById("termsCheck").checked) {
+                    // Mostrar modal de pago
+                    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                    paymentModal.show();
+                } else {
+                    alert("Debes aceptar los términos y condiciones para continuar");
+                }
+            });
+        }
+
+        // Función para actualizar la cantidad
+        function updateQuantity(index, change) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart[index]) {
+                cart[index].quantity += change;
+
+                // Asegurar que la cantidad sea al menos 1
+                if (cart[index].quantity < 1) cart[index].quantity = 1;
+
+                localStorage.setItem("cart", JSON.stringify(cart));
+                location.reload(); // Recargar para ver cambios
+            }
+        }
+
+        // Función para establecer cantidad específica
+        function setQuantity(index, quantity) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart[index]) {
+                cart[index].quantity = quantity > 0 ? quantity : 1;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                location.reload();
+            }
+        }
+
+        // Función para eliminar item
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            location.reload();
+        }
+
+        // Función para actualizar contador
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            if (cartCount) cartCount.textContent = count;
+        }
+
+        // Función para actualizar el resumen
+        function updateSummary(subtotal, discount, tax) {
+            const total = subtotal - discount + tax;
+
+            if (cartSubtotal) cartSubtotal.textContent = `€${subtotal.toFixed(2)}`;
+            if (cartDiscount) cartDiscount.textContent = `-€${discount.toFixed(2)}`;
+            if (cartTax) cartTax.textContent = `€${tax.toFixed(2)}`;
+            if (cartTotal) cartTotal.textContent = `€${total.toFixed(2)}`;
+        }
+    });
+
+    // Variables para el proceso de pago
+    let currentStep = 1;
+    const totalSteps = 5;
+    let selectedPaymentMethod = '';
+
+    // Inicializar modal de pago cuando se muestra
+    document.getElementById('paymentModal').addEventListener('show.bs.modal', function () {
+        currentStep = 1;
+        updateProgressBar();
+        updateStepVisibility();
+    });
+
+    // Función para avanzar al siguiente paso
+    function nextStep(step) {
+        // Validar el paso actual antes de avanzar
+        if (currentStep === 1 && !validateStep1()) {
+            alert('Por favor, completa todos los campos obligatorios.');
+            return;
+        }
+
+        if (currentStep === 2 && !validateStep2()) {
+            alert('Por favor, selecciona un método de pago.');
+            return;
+        }
+
+        currentStep = step;
+        updateProgressBar();
+        updateStepVisibility();
+
+        // Si estamos en el paso 3, actualizar los resúmenes
+        if (currentStep === 3) {
+            updateOrderSummary();
+            updateShippingSummary();
+        }
+    }
+
+    // Función para retroceder al paso anterior
+    function prevStep(step) {
+        currentStep = step;
+        updateProgressBar();
+        updateStepVisibility();
+    }
+
+    // Función para actualizar la barra de progreso
+    function updateProgressBar() {
+        const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+        document.getElementById('paymentProgress').style.width = `${progressPercentage}%`;
+    }
+
+    // Función para actualizar la visibilidad de los pasos
+    function updateStepVisibility() {
+        // Ocultar todos los pasos
+        document.querySelectorAll('.payment-step').forEach(step => {
+            step.classList.remove('active');
+        });
+
+        // Mostrar el paso actual
+        document.getElementById(`step${currentStep}`).classList.add('active');
+    }
+
+    // Función para seleccionar un método de pago
+    function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+
+        // Actualizar la selección visual
+        document.querySelectorAll('.payment-method').forEach(el => {
+            el.classList.remove('selected');
+        });
+
+        document.querySelector(`[onclick="selectPaymentMethod('${method}')"]`).classList.add('selected');
+
+        // Actualizar el radio button
+        document.getElementById(`${method}Method`).checked = true;
+    }
+
+    // Función para validar el paso 1 (información de envío)
+    function validateStep1() {
+        const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'postalCode', 'country'];
+
+        for (let field of requiredFields) {
+            const value = document.getElementById(field).value.trim();
+            if (!value) return false;
+        }
+
+        // Validación básica de email
+        const email = document.getElementById('email').value;
+        if (!/^\S+@\S+\.\S+$/.test(email)) return false;
+
+        return true;
+    }
+
+    // Función para validar el paso 2 (método de pago)
+    function validateStep2() {
+        return selectedPaymentMethod !== '';
+    }
+
+    // Función para actualizar el resumen del pedido
+    function updateOrderSummary() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const orderSummary = document.getElementById('order-summary');
+        let html = '';
+
+        let subtotal = 0;
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            html += `
+                <div class="order-summary-item">
+                    <span>${item.name} x${item.quantity}</span>
+                    <span>€${itemTotal.toFixed(2)}</span>
+                </div>
+            `;
+        });
+
+        const tax = subtotal * 0.21;
+        const total = subtotal + tax;
+
+        html += `
+            <hr>
+            <div class="order-summary-item">
+                <span>Subtotal</span>
+                <span>€${subtotal.toFixed(2)}</span>
+            </div>
+            <div class="order-summary-item">
+                <span>Impuestos (21%)</span>
+                <span>€${tax.toFixed(2)}</span>
+            </div>
+            <div class="order-summary-item">
+                <span>Envío</span>
+                <span>Gratis</span>
+            </div>
+            <div class="order-summary-item fw-bold">
+                <span>Total</span>
+                <span>€${total.toFixed(2)}</span>
+            </div>
+        `;
+
+        orderSummary.innerHTML = html;
+    }
+
+    // Función para actualizar el resumen de dirección de envío
+    function updateShippingSummary() {
+        const shippingSummary = document.getElementById('shipping-address-summary');
+        const fields = {
+            'firstName': 'Nombre',
+            'lastName': 'Apellidos',
+            'email': 'Email',
+            'phone': 'Teléfono',
+            'address': 'Dirección',
+            'city': 'Ciudad',
+            'postalCode': 'Código Postal',
+            'country': 'País'
+        };
+
+        let html = '';
+        for (let [id, label] of Object.entries(fields)) {
+            const value = document.getElementById(id).value;
+            html += `<div class="mb-1"><strong>${label}:</strong> ${value}</div>`;
+        }
+
+        shippingSummary.innerHTML = html;
+    }
+
+    // Habilitar el botón de confirmación cuando se marque la casilla
+    document.getElementById('confirmOrder').addEventListener('change', function() {
+        document.getElementById('confirm-payment-btn').disabled = !this.checked;
+    });
+
+    // Función para procesar el pago
+    function processPayment() {
+        // Ir al paso de procesamiento
+        nextStep(4);
+
+        // Simular procesamiento de pago
+        setTimeout(() => {
+            // Generar número de pedido aleatorio
+            const orderNumber = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('order-number').textContent = orderNumber;
+
+            // Ir al paso de confirmación
+            nextStep(5);
+
+            // Vaciar el carrito después de una compra exitosa
+            localStorage.removeItem('cart');
+        }, 3000);
+    }
+
+    // Función para redirigir a la página de inicio
+    function redirectToHome() {
+        window.location.href = 'base.html';
+    }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+        // Funcionalidad para el carrusel de miniaturas en página de producto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cambiar imagen principal al hacer clic en miniatura
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('main-product-image');
+
+            if (thumbnails && mainImage) {
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remover clase active de todas las miniaturas
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        // Añadir clase active a la miniatura clickeada
+                        this.classList.add('active');
+                        // Cambiar la imagen principal
+                        mainImage.src = this.src;
+                    });
+                });
+            }
+
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                // Simulación: normalmente esto vendría de tu backend
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+
+            updateCartCount();
+
+            // Añadir producto al carrito
+            const addToCartButtons = document.querySelectorAll('.btn-primary');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let count = parseInt(localStorage.getItem('cartCount') || 3);
+                    count++;
+                    localStorage.setItem('cartCount', count);
+                    updateCartCount();
+
+                    // Mostrar notificación
+                    const toast = document.createElement('div');
+                    toast.className = 'position-fixed bottom-0 end-0 p-3';
+                    toast.innerHTML = `
+                        <div class="toast show" role="alert">
+                            <div class="toast-header">
+                                <i class="bi bi-cart-check me-2 text-success"></i>
+                                <strong class="me-auto">Producto añadido</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                El producto se ha añadido correctamente a tu carrito.
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+
+                    // Eliminar la notificación después de 3 segundos
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                });
+            });
+        });
+    </script>
+    <script>
+// Sistema de Carrito de Compras
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carrito si no existe
+    if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Actualizar contador del carrito
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const countElement = document.getElementById('carrito-count');
+        if (countElement) countElement.textContent = count;
+    }
+
+    updateCartCount();
+
+    // Función para añadir productos al carrito
+    window.addToCart = function(productId, productName, productPrice, productImage, productColor, productSize) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const existingItemIndex = cart.findIndex(item =>
+            item.id === productId && item.color === productColor && item.size === productSize
+        );
+
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                color: productColor || 'No especificado',
+                size: productSize || 'No especificado',
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+
+        // Mostrar notificación
+        const toast = document.createElement('div');
+        toast.className = 'position-fixed bottom-0 end-0 p-3';
+        toast.innerHTML = `
+            <div class="toast show" role="alert">
+                <div class="toast-header">
+                    <i class="bi bi-cart-check me-2 text-success"></i>
+                    <strong class="me-auto">¡Éxito!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body">
+                    Producto añadido al carrito
+                </div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    };
+
+    // Configurar botones "Añadir al carrito"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            const productName = this.dataset.name;
+            const productPrice = parseFloat(this.dataset.price);
+            const productImage = this.dataset.image;
+
+            addToCart(productId, productName, productPrice, productImage);
+        });
+    });
+});
+function processPayment() {
+    currentStep = 4;
+    updateProgressBar();
+    updateStepVisibility();
+
+    // Simular procesamiento de pago
+    setTimeout(() => {
+        currentStep = 5;
+        updateProgressBar();
+        updateStepVisibility();
+
+        // Generar número de pedido aleatorio
+        document.getElementById('order-number').textContent = Math.floor(Math.random() * 1000000);
+
+        // 🚀 Vaciar carrito después del pago
+        localStorage.removeItem("cart");
+
+        // 🚀 Refrescar la página para actualizar contador y vista
+        setTimeout(() => {
+            location.reload();
+        }, 2000); // espera 2 seg para que el usuario vea la confirmación
+    }, 3000); // simula 3 seg de "procesando"
+}
+
+ // simulación de 2 segundos
+
+
+</script>
+</body>
+</html>

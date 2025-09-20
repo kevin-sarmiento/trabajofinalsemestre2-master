@@ -1,0 +1,27 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+{% block title %}{{ zapato.nombre }} - Zapatería{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      {% if zapato.imagen %}
+        <img id="main-product-image" src="{{ zapato.imagen.url }}" class="img-fluid product-detail-image" alt="{{ zapato.nombre }}">
+      {% else %}
+        <img src="{% static 'img/no-image.png' %}" class="img-fluid product-detail-image" alt="Sin imagen">
+      {% endif %}
+    </div>
+    <div class="col-md-6">
+      <h1>{{ zapato.nombre }}</h1>
+      <p class="lead">{{ zapato.descripcion }}</p>
+      <p><strong>Marca:</strong> {{ zapato.marca }}</p>
+      <p><strong>Tipo:</strong> {{ zapato.tipo }}</p>
+      <p><strong>Color:</strong> {{ zapato.color }}</p>
+      <p><strong>Talla:</strong> {{ zapato.talla }}</p>
+      <p><strong>Precio:</strong> ${{ zapato.precio }}</p>
+      <p><strong>Puntuación:</strong> {{ zapato.puntuacion }}</p>
+      <a href="{% url 'tienda:lista_zapatos' %}" class="btn btn-outline-secondary mt-3">Volver</a>
+    </div>
+  </div>
+{% endblock %}
+

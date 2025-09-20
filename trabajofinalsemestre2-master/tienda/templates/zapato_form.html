@@ -1,0 +1,80 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+{% block title %}{% if zapato %}Editar Zapato{% else %}Crear Zapato{% endif %}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{% if zapato %}Editar{% else %}Crear{% endif %} Zapato</h2>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        <div class="mb-3">
+          {{ form.nombre.label_tag }}
+          {{ form.nombre }}
+          {{ form.nombre.errors }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.descripcion.label_tag }}
+          {{ form.descripcion }}
+          {{ form.descripcion.errors }}
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            {{ form.tipo.label_tag }}
+            {{ form.tipo }}
+            {{ form.tipo.errors }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.marca.label_tag }}
+            {{ form.marca }}
+            {{ form.marca.errors }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.precio.label_tag }}
+            {{ form.precio }}
+            {{ form.precio.errors }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            {{ form.color.label_tag }}
+            {{ form.color }}
+            {{ form.color.errors }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.talla.label_tag }}
+            {{ form.talla }}
+            {{ form.talla.errors }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.puntuacion.label_tag }}
+            {{ form.puntuacion }}
+            {{ form.puntuacion.errors }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          {{ form.imagen.label_tag }}
+          {{ form.imagen }}
+          {{ form.imagen.errors }}
+        </div>
+
+        {% if zapato and zapato.imagen %}
+        <div class="mb-3">
+          <label class="form-label">Imagen actual</label><br>
+          <img src="{{ zapato.imagen.url }}" alt="{{ zapato.nombre }}" style="max-width:200px; height:auto;">
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">{% if zapato %}Guardar cambios{% else %}Crear{% endif %}</button>
+        <a href="{% url 'tienda:panel' %}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

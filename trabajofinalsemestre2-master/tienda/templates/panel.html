@@ -1,0 +1,30 @@
+{% extends "tienda/base.html" %}
+{% load static %}
+{% block title %}Panel - Zapatería{% endblock %}
+
+{% block content %}
+  <h2>Panel de Gestión</h2>
+  <p><a class="btn btn-primary" href="{% url 'tienda:crear_zapato' %}">Crear nuevo zapato</a></p>
+
+  <table class="table">
+    <thead>
+      <tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Precio</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      {% for zapato in zapatos %}
+      <tr>
+        <td>{{ zapato.id }}</td>
+        <td>{{ zapato.nombre }}</td>
+        <td>{{ zapato.marca }}</td>
+        <td>${{ zapato.precio }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'tienda:editar_zapato' zapato.id %}">Editar</a>
+          <a class="btn btn-sm btn-danger" href="{% url 'tienda:eliminar_zapato' zapato.id %}">Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">No hay productos.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

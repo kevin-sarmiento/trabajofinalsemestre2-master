@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Zapatería Elegante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* El contenido ocupa todo el espacio disponible */
+}
+ main {
+    margin-bottom: 80px; /* Ajusta el valor según la altura del footer */
+}
+
+        :root {
+            --primary-color: #8a5a44;
+            --secondary-color: #d4b896;
+            --accent-color: #c17878;
+            --dark-color: #3c2f2f;
+            --light-color: #f8f5f0;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #6d4635;
+            border-color: #6d4635;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            margin-top: auto;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar-dark {
+            background-color: var(--dark-color) !important;
+        }
+
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+        }
+
+        .profile-stats {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+
+        .nav-pills .nav-link {
+            color: var(--dark-color);
+        }
+
+        .order-status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .order-card {
+            transition: all 0.3s;
+        }
+
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-item {
+            transition: all 0.3s;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .address-card {
+            transition: all 0.3s;
+        }
+
+        .address-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(212, 184, 150, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'tienda:base' %}">
+                <i class="bi bi-shop"></i> Zapatería Elegante
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'tienda:base' %}">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:sobre_nosotros' %}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:contacto' %}">Contacto</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tienda:carrito' %}">
+                            <i class="bi bi-cart3"></i> Carrito
+
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Mi Cuenta
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item active" href="{% url 'tienda:perfil' %}">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:perfil' %}#orders">Mis Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                           <li><a class="dropdown-item" href="#" id="logoutClear">Cerrar Sesión</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="container mt-4">
+        <!-- Migas de pan -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'tienda:base' %}">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
+            </ol>
+        </nav>
+
+        <div class="row mb-5">
+            <!-- Información del perfil -->
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" 
+                             alt="Avatar" class="profile-avatar mb-3">
+                        <h3>Carlos Martínez</h3>
+
+                        <div class="d-grid gap-2 mb-3">
+  <input id="avatarInput" type="file" accept="image/*" style="display:none">
+  <button id="changeAvatarBtn" class="btn btn-outline-primary">
+    <i class="bi bi-camera"></i> Cambiar foto
+  </button>
+</div>
+
+                        
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="profile-stats">
+                                    <div class="stat-number">0</div>
+                                    <div class="stat-label">Pedidos</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="profile-stats">
+                                    <div class="stat-number">0</div>
+                                    <div class="stat-label">Favoritos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Información de contacto</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="bi bi-envelope me-2 text-primary"></i>
+                                carlos.martinez@email.com
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="bi bi-telephone me-2 text-primary"></i>
+                                +34 612 345 678
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="bi bi-geo-alt me-2 text-primary"></i>
+                                Madrid, España
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido principal del perfil -->
+            <div class="col-lg-8">
+                <ul class="nav nav-pills mb-4" id="profileTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile" type="button" role="tab">
+                            <i class="bi bi-person"></i> Perfil
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="orders-tab" data-bs-toggle="pill" data-bs-target="#orders" type="button" role="tab">
+                            <i class="bi bi-bag"></i> Pedidos
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="wishlist-tab" data-bs-toggle="pill" data-bs-target="#wishlist" type="button" role="tab">
+                            <i class="bi bi-heart"></i> Favoritos
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="addresses-tab" data-bs-toggle="pill" data-bs-target="#addresses" type="button" role="tab">
+                            <i class="bi bi-house-door"></i> Direcciones
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="profileTabsContent">
+                    <!-- Pestaña de Perfil -->
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Información personal</h4>
+                                <form>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="firstName" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="firstName" value="Carlos">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lastName" class="form-label">Apellidos</label>
+                                            <input type="text" class="form-control" id="lastName" value="Martínez">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" value="carlos.martinez@email.com">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="phone" class="form-label">Teléfono</label>
+                                            <input type="tel" class="form-control" id="phone" value="+34 612 345 678">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+                                        <input type="date" class="form-control" id="birthdate" value="1985-06-15">
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                    </div>
+                                </form>
+
+                                <hr class="my-4">
+
+                                <h5 class="mb-3">Cambiar contraseña</h5>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="currentPassword" class="form-label">Contraseña actual</label>
+                                        <input type="password" class="form-control" id="currentPassword">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="newPassword" class="form-label">Nueva contraseña</label>
+                                        <input type="password" class="form-control" id="newPassword">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label">Confirmar nueva contraseña</label>
+                                        <input type="password" class="form-control" id="confirmPassword">
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-outline-primary">Actualizar contraseña</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pestaña de Pedidos -->
+                    <div class="tab-pane fade" id="orders" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Historial de pedidos</h4>
+
+
+                                
+                                <div class="text-center mt-4">
+                                    <a href="{% url 'tienda:base' %}" class="btn btn-outline-primary">
+                                        <i class="bi bi-bag"></i> Seguir comprando
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pestaña de Direcciones -->
+                    <div class="tab-pane fade" id="addresses" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Mis direcciones</h4>
+                                
+                                <div class="row">
+                                    <!-- Dirección principal -->
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card address-card h-100">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                                    <h5 class="card-title">Dirección principal</h5>
+                                                    <span class="badge bg-primary">Principal</span>
+                                                </div>
+                                                <p class="card-text">
+                                                    Carlos Martínez<br>
+                                                    Calle Principal, 123<br>
+                                                    28001 Madrid<br>
+                                                    España
+                                                </p>
+                                                <p class="card-text">
+                                                    <strong>Teléfono:</strong> +34 612 345 678
+                                                </p>
+                                            </div>
+                                            <div class="card-footer bg-white border-0">
+                                                <button class="btn btn-outline-primary btn-sm me-2">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Otra dirección -->
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card address-card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-3">Dirección de trabajo</h5>
+                                                <p class="card-text">
+                                                    Carlos Martínez<br>
+                                                    Avenida de la Empresa, 456<br>
+                                                    Edificio Oficinas, Planta 3, Oficina 302<br>
+                                                    28002 Madrid<br>
+                                                    España
+                                                </p>
+                                                <p class="card-text">
+                                                    <strong>Teléfono:</strong> +34 915 555 555
+                                                </p>
+                                            </div>
+                                            <div class="card-footer bg-white border-0">
+                                                <button class="btn btn-outline-primary btn-sm me-2">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </button>
+                                                <button class="btn btn-outline-secondary btn-sm me-2">
+                                                    <i class="bi bi-check"></i> Hacer principal
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Añadir nueva dirección -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3">Añadir nueva dirección</h5>
+                                        <form>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="addressName" class="form-label">Nombre para la dirección</label>
+                                                    <input type="text" class="form-control" id="addressName" placeholder="Ej: Casa, Trabajo...">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="recipientName" class="form-label">Nombre del destinatario</label>
+                                                    <input type="text" class="form-control" id="recipientName">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="street" class="form-label">Dirección</label>
+                                                <input type="text" class="form-control" id="street">
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="city" class="form-label">Ciudad</label>
+                                                    <input type="text" class="form-control" id="city">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="postalCode" class="form-label">Código postal</label>
+                                                    <input type="text" class="form-control" id="postalCode">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="country" class="form-label">País</label>
+                                                <select class="form-select" id="country">
+                                                    <option selected>España</option>
+                                                    <option>Portugal</option>
+                                                    <option>Francia</option>
+                                                    <option>Italia</option>
+                                                    <option>Alemania</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phoneAddress" class="form-label">Teléfono</label>
+                                                <input type="tel" class="form-control" id="phoneAddress">
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" id="makeDefault">
+                                                <label class="form-check-label" for="makeDefault">
+                                                    Establecer como dirección principal
+                                                </label>
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="submit" class="btn btn-primary">Guardar dirección</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Zapatería Elegante</h5>
+                    <p>La mejor selección de zapatos para hombre y mujer.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-pinterest fs-4"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces útiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'tienda:sobre_nosotros' %}">Sobre nosotros</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Términos y condiciones</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de privacidad</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Política de envíos</a></li>
+                        <li><a href="{% url 'tienda:terminos' %}" class="text-light">Devoluciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <address>
+                        <i class="bi bi-geo-alt"></i> Calle Principal, 123<br>
+                        <i class="bi bi-phone"></i> +34 123 456 789<br>
+                        <i class="bi bi-envelope"></i> info@zapateriaelegante.com
+                    </address>
+
+                </div>
+            </div>
+            <hr>
+            <p class="text-center mb-0">&copy; 2023 Zapatería Elegante. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+            
+            updateCartCount();
+            
+            // Funcionalidad para los botones de añadir al carrito desde favoritos
+            const addToCartButtons = document.querySelectorAll('.btn-primary');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let count = parseInt(localStorage.getItem('cartCount') || 3);
+                    count++;
+                    localStorage.setItem('cartCount', count);
+                    updateCartCount();
+                    
+                    // Mostrar notificación
+                    const toast = document.createElement('div');
+                    toast.className = 'position-fixed bottom-0 end-0 p-3';
+                    toast.innerHTML = `
+                        <div class="toast show" role="alert">
+                            <div class="toast-header">
+                                <i class="bi bi-cart-check me-2 text-success"></i>
+                                <strong class="me-auto">Producto añadido</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                El producto se ha añadido correctamente a tu carrito.
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    
+                    // Eliminar la notificación después de 3 segundos
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                });
+            });
+            
+            // Funcionalidad para eliminar favoritos
+            const deleteButtons = document.querySelectorAll('.btn-outline-danger');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const item = this.closest('.col-md-6');
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.remove();
+                    }, 300);
+                });
+            });
+        });
+    </script>
+<script>
+        // Funcionalidad para el carrusel de miniaturas en página de producto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cambiar imagen principal al hacer clic en miniatura
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('main-product-image');
+
+            if (thumbnails && mainImage) {
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remover clase active de todas las miniaturas
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        // Añadir clase active a la miniatura clickeada
+                        this.classList.add('active');
+                        // Cambiar la imagen principal
+                        mainImage.src = this.src;
+                    });
+                });
+            }
+
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                // Simulación: normalmente esto vendría de tu backend
+                const count = localStorage.getItem('cartCount') || 3;
+                document.getElementById('carrito-count').textContent = count;
+            }
+
+            updateCartCount();
+
+            // Añadir producto al carrito
+            const addToCartButtons = document.querySelectorAll('.btn-primary');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let count = parseInt(localStorage.getItem('cartCount') || 3);
+                    count++;
+                    localStorage.setItem('cartCount', count);
+                    updateCartCount();
+
+                    // Mostrar notificación
+                    const toast = document.createElement('div');
+                    toast.className = 'position-fixed bottom-0 end-0 p-3';
+                    toast.innerHTML = `
+                        <div class="toast show" role="alert">
+                            <div class="toast-header">
+                                <i class="bi bi-cart-check me-2 text-success"></i>
+                                <strong class="me-auto">Producto añadido</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                El producto se ha añadido correctamente a tu carrito.
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+
+                    // Eliminar la notificación después de 3 segundos
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                });
+            });
+        });
+    </script>
+    <script>
+// Sistema de Carrito de Compras
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carrito si no existe
+    if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Actualizar contador del carrito
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const countElement = document.getElementById('carrito-count');
+        if (countElement) countElement.textContent = count;
+    }
+
+    updateCartCount();
+
+    // Función para añadir productos al carrito
+    window.addToCart = function(productId, productName, productPrice, productImage, productColor, productSize) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const existingItemIndex = cart.findIndex(item =>
+            item.id === productId && item.color === productColor && item.size === productSize
+        );
+
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                color: productColor || 'No especificado',
+                size: productSize || 'No especificado',
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+
+        // Mostrar notificación
+        const toast = document.createElement('div');
+        toast.className = 'position-fixed bottom-0 end-0 p-3';
+        toast.innerHTML = `
+            <div class="toast show" role="alert">
+                <div class="toast-header">
+                    <i class="bi bi-cart-check me-2 text-success"></i>
+                    <strong class="me-auto">¡Éxito!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body">
+                    Producto añadido al carrito
+                </div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    };
+
+    // Configurar botones "Añadir al carrito"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.id;
+            const productName = this.dataset.name;
+            const productPrice = parseFloat(this.dataset.price);
+            const productImage = this.dataset.image;
+
+            addToCart(productId, productName, productPrice, productImage);
+        });
+    });
+});
+
+
+
+// ==== Keys usados en localStorage ====
+const KEY_PROFILE = 'perfil_usuario';
+const KEY_FAVORITES = 'perfil_favoritos';
+const KEY_ORDERS = 'perfil_pedidos';
+const KEY_ADDRESSES = 'perfil_direcciones';
+const KEY_INITIALIZED = 'perfil_initialized'; // para "nuevo" la primera vez
+
+// ===== Helper =====
+function qs(sel){ return document.querySelector(sel); }
+function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
+function saveJSON(key, obj){ localStorage.setItem(key, JSON.stringify(obj)); }
+function loadJSON(key, fallback){ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+
+// ===== Iniciar estado "nuevo" la primera vez =====
+function ensureInitialized() {
+  if (!localStorage.getItem(KEY_INITIALIZED)) {
+    // marcar como nuevo (podrías mostrar un banner o placeholder)
+    const defaultProfile = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      birthdate: '',
+      avatar: '' // base64 o url
+    };
+    saveJSON(KEY_PROFILE, defaultProfile);
+    saveJSON(KEY_FAVORITES, []);
+    saveJSON(KEY_ORDERS, []);
+    saveJSON(KEY_ADDRESSES, []);
+    localStorage.setItem(KEY_INITIALIZED, '1');
+  }
+}
+
+// ===== Perfil: cargar / guardar / mostrar =====
+function populateProfileToUI() {
+  const p = loadJSON(KEY_PROFILE, {});
+  if (!p) return;
+  if (qs('#firstName')) qs('#firstName').value = p.firstName || '';
+  if (qs('#lastName')) qs('#lastName').value = p.lastName || '';
+  if (qs('#email')) qs('#email').value = p.email || '';
+  if (qs('#phone')) qs('#phone').value = p.phone || '';
+  if (qs('#birthdate')) qs('#birthdate').value = p.birthdate || '';
+  const avatarEl = qs('#profileAvatar');
+  if (avatarEl) avatarEl.src = p.avatar || 'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80';
+  updateStatsUI();
+}
+
+function updateStatsUI(){
+  const orders = loadJSON(KEY_ORDERS, []);
+  const favs = loadJSON(KEY_FAVORITES, []);
+  qsa('.stat-number').forEach(el=>{
+    if (el.parentElement && el.parentElement.querySelector('.stat-label')) {
+      const label = el.parentElement.querySelector('.stat-label').textContent.trim().toLowerCase();
+      if (label.includes('pedidos')) el.textContent = orders.length;
+      if (label.includes('favoritos')) el.textContent = favs.length;
+    }
+  });
+}
+
+function saveProfileFromForm(evt) {
+  if (evt) evt.preventDefault();
+  const p = loadJSON(KEY_PROFILE, {});
+  if (qs('#firstName')) p.firstName = qs('#firstName').value.trim();
+  if (qs('#lastName')) p.lastName = qs('#lastName').value.trim();
+  if (qs('#email')) p.email = qs('#email').value.trim();
+  if (qs('#phone')) p.phone = qs('#phone').value.trim();
+  if (qs('#birthdate')) p.birthdate = qs('#birthdate').value;
+  saveJSON(KEY_PROFILE, p);
+  populateProfileToUI();
+  // feedback pequeño
+  showToast('Perfil guardado');
+}
+
+// ===== Avatar upload (base64) =====
+function initAvatarUpload() {
+  const input = qs('#avatarInput');
+  const btn = qs('#changeAvatarBtn');
+  if (!input || !btn) return;
+  btn.addEventListener('click', ()=> input.click());
+  input.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const base64 = ev.target.result;
+      const p = loadJSON(KEY_PROFILE, {});
+      p.avatar = base64;
+      saveJSON(KEY_PROFILE, p);
+      populateProfileToUI();
+      showToast('Foto actualizada');
+    }
+    reader.readAsDataURL(file);
+  });
+}
+
+// ===== Favoritos: add/remove/render =====
+function addFavorite(product) {
+  // product = { id, title, price, image }  — formato que quieras
+  const favs = loadJSON(KEY_FAVORITES, []);
+  if (favs.find(f => f.id === product.id)) return;
+  favs.push(product);
+  saveJSON(KEY_FAVORITES, favs);
+  renderFavorites();
+  updateStatsUI();
+}
+
+function removeFavorite(productId) {
+  let favs = loadJSON(KEY_FAVORITES, []);
+  favs = favs.filter(f => f.id !== productId);
+  saveJSON(KEY_FAVORITES, favs);
+  renderFavorites();
+  updateStatsUI();
+}
+
+function renderFavorites() {
+  const container = qs('#wishlist .card-body .row');
+  if (!container) return;
+  const favs = loadJSON(KEY_FAVORITES, []);
+  container.innerHTML = ''; // limpiar
+  if (favs.length === 0) {
+    container.innerHTML = '<div class="col-12"><p class="text-muted">No tienes favoritos aún.</p></div>';
+    return;
+  }
+  favs.forEach(p => {
+    const col = document.createElement('div');
+    col.className = 'col-md-6 mb-4';
+    col.innerHTML = `
+      <div class="card wishlist-item h-100">
+        <div class="card-body">
+          <div class="d-flex">
+            <img src="${p.image}" alt="${p.title}" class="me-3" style="width:80px;height:80px;object-fit:cover;">
+            <div class="flex-grow-1">
+              <h6 class="card-title">${p.title}</h6>
+              <p class="card-text text-primary mb-1">${p.price}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-0">
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-sm add-to-cart-from-fav" data-id="${p.id}">Añadir al carrito</button>
+            <button class="btn btn-outline-danger btn-sm remove-fav" data-id="${p.id}">
+              <i class="bi bi-trash"></i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(col);
+  });
+
+  // eventos: eliminar y añadir al carrito
+  qsa('.remove-fav').forEach(btn => {
+    btn.onclick = () => removeFavorite(btn.dataset.id);
+  });
+  qsa('.add-to-cart-from-fav').forEach(btn => {
+    btn.onclick = () => {
+      // disparar la función global addToCart si existe (integra con tu carrito)
+      const id = btn.dataset.id;
+      const fav = loadJSON(KEY_FAVORITES, []).find(f=>f.id===id);
+      if (!fav) return;
+      if (window.addToCart) {
+        // Ejemplo: addToCart(id, name, price, image)
+        try {
+          window.addToCart(fav.id, fav.title, parseFloat(fav.price.replace(/[^\d.]/g,'')) || 0, fav.image);
+          showToast('Producto añadido al carrito');
+        } catch (e){
+          showToast('No se pudo añadir al carrito: integrar función addToCart');
+        }
+      } else {
+        showToast('Función addToCart no encontrada en esta página');
+      }
+    }
+  });
+}
+
+// ===== Orders: render + añadir pedidos desde el carrito =====
+function renderOrders() {
+  const container = qs('#orders .card-body');
+  if (!container) return;
+  const orders = loadJSON(KEY_ORDERS, []);
+  // Reemplazamos la sección interna por la lista de pedidos
+  const listHtml = orders.length === 0 ? '<p class="text-muted">No tienes pedidos aún.</p>' :
+    orders.map(o => {
+      const itemsHtml = o.items.map(it => `<div>${it.name} x${it.quantity} - ${it.price}</div>`).join('');
+      return `
+      <div class="card order-card mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h5 class="card-title mb-0">Pedido #${o.id}</h5>
+              <small class="text-muted">Realizado el ${o.date}</small>
+            </div>
+            <span class="order-status-badge ${o.statusClass || 'bg-info'}">${o.status || 'Procesando'}</span>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="mb-1"><strong>Productos:</strong> ${o.items.length} artículos</p>
+              <p class="mb-1"><strong>Total:</strong> ${o.total}</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1"><strong>Dirección de envío:</strong> ${o.address || '---'}</p>
+              <p class="mb-0"><strong>Método de pago:</strong> ${o.payment || '---'}</p>
+            </div>
+          </div>
+          <div class="mt-3">
+            <a href="#" class="btn btn-sm btn-outline-primary">Ver detalles</a>
+            <a href="#" class="btn btn-sm btn-outline-secondary">Volver a pedir</a>
+          </div>
+        </div>
+      </div>
+      `;
+    }).join('');
+  // Mantener el título y sustituir lo demás
+  const title = container.querySelector('h4');
+  if (title) {
+    container.innerHTML = `<h4 class="card-title mb-4">Historial de pedidos</h4>${listHtml}`;
+  } else {
+    container.innerHTML = `<h4 class="card-title mb-4">Historial de pedidos</h4>${listHtml}`;
+  }
+  updateStatsUI();
+}
+
+// Llamar esto cuando se complete la compra en el carrito
+// cart: array de items { id, name, price, quantity, image }
+// payment, address opcionales
+function addOrderFromCart(cart, { payment='Tarjeta', address='' } = {}) {
+  if (!Array.isArray(cart) || cart.length === 0) return;
+  const orders = loadJSON(KEY_ORDERS, []);
+  const total = cart.reduce((s,it)=> s + (parseFloat(it.price)||0) * (it.quantity||1), 0).toFixed(2);
+  const order = {
+    id: 'ORD' + Date.now(),
+    date: new Date().toLocaleString(),
+    items: cart,
+    total: '€' + total,
+    payment, address,
+    status: 'Procesando',
+    statusClass: 'bg-info'
+  };
+  orders.unshift(order);
+  saveJSON(KEY_ORDERS, orders);
+  renderOrders();
+  showToast('Pedido agregado a historial');
+}
+
+// ===== Direcciones: CRUD simple y render =====
+function renderAddresses() {
+  const container = qs('#addresses .card-body');
+  if (!container) return;
+  const addresses = loadJSON(KEY_ADDRESSES, []);
+  // construimos HTML de direcciones existentes (excluyendo el formulario de añadir)
+  const existing = addresses.length === 0 ? '<p class="text-muted">No tienes direcciones guardadas.</p>' :
+    addresses.map((a, idx) => `
+      <div class="col-md-6 mb-4">
+        <div class="card address-card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="card-title">${a.name}</h5>
+              ${a.isDefault ? '<span class="badge bg-primary">Principal</span>' : ''}
+            </div>
+            <p class="card-text">${a.recipient}<br>${a.street}<br>${a.city} ${a.postalCode}<br>${a.country}</p>
+            <p class="card-text"><strong>Teléfono:</strong> ${a.phone}</p>
+          </div>
+          <div class="card-footer bg-white border-0">
+            <button class="btn btn-outline-primary btn-sm me-2 edit-address" data-idx="${idx}"><i class="bi bi-pencil"></i> Editar</button>
+            <button class="btn btn-outline-secondary btn-sm me-2 set-default" data-idx="${idx}"><i class="bi bi-check"></i> Hacer principal</button>
+            <button class="btn btn-outline-danger btn-sm delete-address" data-idx="${idx}"><i class="bi bi-trash"></i> Eliminar</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  // colocamosexisting justo antes del formulario de añadir (nos apoyamos en que el HTML del template tiene el formulario abajo)
+  // Buscamos el card "Añadir nueva dirección" (suponemos que es el último .card dentro de addresses)
+  const addCard = container.querySelectorAll('.card');
+  // reconstruir: mantendremos el título y el formulario que exista (último .card)
+  const title = `<h4 class="card-title mb-4">Mis direcciones</h4>`;
+  // extraemos el HTML del formulario si existe
+  let formHtml = '';
+  const cards = container.querySelectorAll('.card');
+  if (cards && cards.length > 0) {
+    formHtml = cards[cards.length-1].outerHTML;
+  }
+  // Si no encontramos formulario, añadimos un sencillo
+  if (!formHtml) {
+    formHtml = `
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Añadir nueva dirección</h5>
+          <form id="addressForm">
+            <!-- inputs generados abajo -->
+            <div class="row mb-3">
+              <div class="col-md-6"><input id="addr_name" class="form-control" placeholder="Nombre para la dirección"></div>
+              <div class="col-md-6"><input id="addr_recipient" class="form-control" placeholder="Nombre del destinatario"></div>
+            </div>
+            <div class="mb-3"><input id="addr_street" class="form-control" placeholder="Dirección"></div>
+            <div class="row mb-3">
+              <div class="col-md-6"><input id="addr_city" class="form-control" placeholder="Ciudad"></div>
+              <div class="col-md-6"><input id="addr_postal" class="form-control" placeholder="Código postal"></div>
+            </div>
+            <div class="mb-3"><select id="addr_country" class="form-select"><option>España</option><option>Portugal</option></select></div>
+            <div class="mb-3"><input id="addr_phone" class="form-control" placeholder="Teléfono"></div>
+            <div class="form-check mb-3"><input id="addr_default" type="checkbox" class="form-check-input"><label class="form-check-label">Establecer como dirección principal</label></div>
+            <div class="d-grid"><button type="submit" class="btn btn-primary">Guardar dirección</button></div>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+  container.innerHTML = title + '<div class="row">' + existing + '</div>' + formHtml;
+
+  // listeners
+  qsa('.delete-address').forEach(btn => {
+    btn.onclick = ()=> {
+      const idx = parseInt(btn.dataset.idx);
+      let addresses = loadJSON(KEY_ADDRESSES, []);
+      addresses.splice(idx,1);
+      saveJSON(KEY_ADDRESSES, addresses);
+      renderAddresses();
+    };
+  });
+  qsa('.set-default').forEach(btn=>{
+    btn.onclick = ()=>{
+      const idx = parseInt(btn.dataset.idx);
+      let addresses = loadJSON(KEY_ADDRESSES, []);
+      addresses = addresses.map((a,i)=> ({...a, isDefault: i===idx}));
+      saveJSON(KEY_ADDRESSES, addresses);
+      renderAddresses();
+    }
+  });
+  qsa('.edit-address').forEach(btn=>{
+    btn.onclick = ()=>{
+      const idx = parseInt(btn.dataset.idx);
+      const addresses = loadJSON(KEY_ADDRESSES, []);
+      const a = addresses[idx];
+      // rellena el formulario con los datos para editar (usamos los inputs que creamos)
+      if (!a) return;
+      // si no existen inputs (posible porque el template original tiene otro formulario), abrimos prompt simple
+      if (!qs('#addr_name')) {
+        const n = prompt('Nombre para la dirección', a.name);
+        if (n===null) return;
+        a.name = n;
+        addresses[idx] = a;
+        saveJSON(KEY_ADDRESSES, addresses);
+        renderAddresses();
+        return;
+      }
+      qs('#addr_name').value = a.name;
+      qs('#addr_recipient').value = a.recipient;
+      qs('#addr_street').value = a.street;
+      qs('#addr_city').value = a.city;
+      qs('#addr_postal').value = a.postalCode;
+      qs('#addr_country').value = a.country;
+      qs('#addr_phone').value = a.phone;
+      qs('#addr_default').checked = !!a.isDefault;
+      // al guardar, reemplazaremos el existente en lugar de crear nuevo: guardamos el índice actual temporal en dataset
+      qs('#addressForm').dataset.editIdx = idx;
+      window.scrollTo({ top: qs('#addresses').offsetTop - 80, behavior: 'smooth' });
+    };
+  });
+
+  // Form submit
+  const form = qs('#addressForm');
+  if (form) {
+    form.onsubmit = (e)=>{
+      e.preventDefault();
+      let addresses = loadJSON(KEY_ADDRESSES, []);
+      const newAddr = {
+        name: qs('#addr_name').value || 'Dirección',
+        recipient: qs('#addr_recipient').value || '',
+        street: qs('#addr_street').value || '',
+        city: qs('#addr_city').value || '',
+        postalCode: qs('#addr_postal').value || '',
+        country: qs('#addr_country').value || 'España',
+        phone: qs('#addr_phone').value || '',
+        isDefault: !!qs('#addr_default').checked
+      };
+      // si se está editando
+      if (form.dataset.editIdx) {
+        addresses[parseInt(form.dataset.editIdx)] = newAddr;
+        delete form.dataset.editIdx;
+      } else {
+        if (newAddr.isDefault) {
+          addresses = addresses.map(a=>({...a,isDefault:false}));
+        }
+        addresses.push(newAddr);
+      }
+      saveJSON(KEY_ADDRESSES, addresses);
+      renderAddresses();
+      showToast('Dirección guardada');
+      form.reset();
+    };
+  }
+}
+
+// ===== Mostrar toast simple =====
+function showToast(msg, timeout=2200){
+  const t = document.createElement('div');
+  t.className = 'position-fixed bottom-0 end-0 p-3';
+  t.style.zIndex = 9999;
+  t.innerHTML = `<div class="toast show" role="alert"><div class="toast-body">${msg}</div></div>`;
+  document.body.appendChild(t);
+  setTimeout(()=> t.remove(), timeout);
+}
+
+// ===== Abrir pestaña si URL contiene hash (por ejemplo perfil#orders) =====
+function openTabFromHash() {
+  const hash = window.location.hash;
+  if (!hash) return;
+  const triggerEl = document.querySelector('[data-bs-toggle="pill"][data-bs-target="' + hash + '"]') ||
+                    document.querySelector('[data-bs-toggle="tab"][href="' + hash + '"]') ||
+                    document.querySelector('[data-bs-toggle="pill"][href="' + hash + '"]');
+  if (triggerEl) {
+    try {
+      const tab = new bootstrap.Tab(triggerEl);
+      tab.show();
+      // scroll suave al inicio de profile area
+      setTimeout(()=> {
+        const top = qs('main').offsetTop - 70;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 100);
+    } catch(e){}
+  }
+}
+
+// ===== Borrar datos en "Cerrar sesión" =====
+function initLogoutClear() {
+  const logout = qs('#logoutClear');
+  if (!logout) return;
+  logout.addEventListener('click', (e)=>{
+    e.preventDefault();
+    if (!confirm('¿Borrar datos de perfil local y cerrar sesión? (esto solo borra datos locales)')) return;
+    localStorage.removeItem(KEY_PROFILE);
+    localStorage.removeItem(KEY_FAVORITES);
+    localStorage.removeItem(KEY_ORDERS);
+    localStorage.removeItem(KEY_ADDRESSES);
+    localStorage.removeItem(KEY_INITIALIZED);
+    showToast('Datos locales borrados');
+    // opcional: redirigir
+    // window.location.href = "{% url 'tienda:base' %}";
+  });
+}
+
+// ===== Integración con carrito: ejemplo de uso =====
+// Si tu carrito guarda en localStorage KEY 'cart', puedes llamar addOrderFromCart(JSON.parse(localStorage.getItem('cart')))
+// O bien invocar manualmente desde el flujo de checkout:
+// addOrderFromCart([{id:'p1', name:'Zapa', price:'59.99', quantity:2}], {payment:'PayPal', address:'Calle X'});
+
+// ===== Inicialización =====
+document.addEventListener('DOMContentLoaded', ()=>{
+  ensureInitialized();
+  populateProfileToUI();
+  initAvatarUpload();
+  renderFavorites();
+  renderOrders();
+  renderAddresses();
+  openTabFromHash();
+  initLogoutClear();
+
+  // Asociar form de perfil para guardado
+  const perfilForm = qs('#profile form');
+  if (perfilForm) perfilForm.addEventListener('submit', saveProfileFromForm);
+
+  // Si tu perfil tiene botones "Añadir a favoritos" en páginas de producto, exponer función global:
+  window.addFavorite = addFavorite;
+  window.removeFavorite = removeFavorite;
+  window.addOrderFromCart = addOrderFromCart; // para que la lógica del checkout la llame
+});
+
+
+</script>
+</body>
+</html>
